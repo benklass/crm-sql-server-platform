@@ -1,6 +1,8 @@
+from django.contrib import admin
 from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('crm/', views.crm, name='crm'),
+    path('admin', admin.site.urls),
+    path('', views.conn_sql)
 ]
