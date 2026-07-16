@@ -1,0 +1,85 @@
+<!-- Opportunities list page -->
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Opportunities List View</title>
+        <!-- Bootstrap CSS -->
+        <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
+        crossorigin="anonymous">
+        <link rel="stylesheet" href="{% static 'crm/styles.css' %}">
+    </head>
+    <body>
+        <div class="container">
+            <h1>CRM Web Application</h1>
+            <nav class="navbar navbar-expand-sm">
+                <div class="container-fluid">
+                    <!-- Links -->
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link link-color" href="#">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link link-color" href="{% url 'users' %}">Users</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link link-color" href="{% url 'leads' %}">Leads</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link link-color" href="{% url 'accounts' %}">Accounts</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link link-color" href="{% url 'contacts' %}">Contacts</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link link-color" href="{% url 'opportunities' %}">Opportunities</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <h2>CRM Opportunities Table</h2>
+            <table class="table-condensed table-striped table-bordered">
+                <tr>
+                    <th>Opportunity ID</th>
+                    <th>Amount</th>
+                    <th>Name</th>
+                    <th>Close Date</th>
+                    <th>Account</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Stage</th>
+                    <th>Lead Source</th>
+                    <th>Probability</th>
+                    <th>Created Date</th>
+                    <th>Owner</th>
+                    <th>Created By</th>
+                </tr>
+                {% for datadisplay in CRMOpportunity %}
+                <tr>
+                    <td>{{datadisplay.opportunity_id}}</td>
+                    <td>{{datadisplay.opportunity_amount}}</td>
+                    <td>{{datadisplay.opportunity_name}}</td>
+                    <td>{{datadisplay.opportunity_close_date}}</td>
+                    <td>{{datadisplay.account_num}}</td>
+                    <td>{{datadisplay.opportunity_description}}</td>
+                    <td>{{datadisplay.opportunity_type}}</td>
+                    <td>{{datadisplay.opportunity_stage}}</td>
+                    <td>{{datadisplay.lead_source}}</td>
+                    <td>{{datadisplay.opportunity_probability}}</td>
+                    <td>{{datadisplay.opportunity_created_date}}</td>
+                    <td>{{datadisplay.user_first_name}} {{datadisplay.user_last_name}}</td>
+                    <td>{{datadisplay.user_first_name}} {{datadisplay.user_last_name}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+        crossorigin="anonymous">
+        </script>
+    </body>
+</html>

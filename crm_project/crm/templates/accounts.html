@@ -1,0 +1,91 @@
+<!-- Accounts list page -->
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Accounts List View</title>
+         <!-- Bootstrap CSS -->
+        <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
+        crossorigin="anonymous">
+        <link rel="stylesheet" href="{% static 'crm/styles.css' %}">
+    </head>
+    </head>
+    <body>
+        <div class="container">
+            <h1>CRM Web Application</h1>
+            <nav class="navbar navbar-expand-sm">
+                <div class="container-fluid">
+                    <!-- Links -->
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link link-color" href="#">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link link-color" href="{% url 'users' %}">Users</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link link-color" href="{% url 'leads' %}">Leads</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link link-color" href="{% url 'accounts' %}">Accounts</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link link-color" href="{% url 'contacts' %}">Contacts</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link link-color" href="{% url 'opportunities' %}">Opportunities</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <h2>CRM Accounts Table</h2>
+            <table class="table-condensed table-striped table-bordered">
+                <tr>
+                    <th>Account ID</th>
+                    <th>Name</th>
+                    <th>City</th>
+                    <th>Region</th>
+                    <th>Country</th>
+                    <th>Description</th>
+                    <th>Inudstry</th>
+                    <th>Annual Reveneu</th>
+                    <th>Number of Employees</th>
+                    <th>Source</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Created Date</th>
+                    <th>Owner</th>
+                    <th>Created By</th>
+                </tr>
+                {% for datadisplay in CRMAccount %}
+                <tr>
+                    <td>{{datadisplay.account_id}}</td>
+                    <td>{{datadisplay.account_name}}</td>
+                    <td>{{datadisplay.city}}</td>
+                    <td>{{datadisplay.region}}</td>
+                    <td>{{datadisplay.country}}</td>
+                    <td>{{datadisplay.account_description}}</td>
+                    <td>{{datadisplay.account_industry}}</td>
+                    <td>{{datadisplay.account_annual_revenue}}</td>
+                    <td>{{datadisplay.account_number_of_employees}}</td>
+                    <td>{{datadisplay.account_source}}</td>
+                    <td>{{datadisplay.account_email}}</td>
+                    <td>{{datadisplay.account_phone}}</td>
+                    <td>{{datadisplay.account_created_date}}</td>
+                    <td>{{datadisplay.user_first_name}} {{datadisplay.user_last_name}}</td>
+                    <td>{{datadisplay.user_first_name}} {{datadisplay.user_last_name}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <!-- Bootstrap JavaScript -->
+        <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+        crossorigin="anonymous">
+        </script>
+    </body>
+</html>

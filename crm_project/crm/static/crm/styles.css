@@ -1,0 +1,23 @@
+nav {
+  background-color: #630330;
+}
+
+nav > div > ul > li:hover {
+  background-color: #840545
+}
+
+.link-color {
+  color: white;
+}
+
+.link-color:hover {
+  color: white;
+}
+
+th {
+  background-color: #630330;
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
