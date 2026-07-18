@@ -1,0 +1,172 @@
+<!-- Lead details page -->
+{% extends "base.html" %}
+{% block title %}
+<title>Lead Details Page</title>
+{% endblock %}
+{% block content %}
+{% for datadisplay in CRMLead %}
+<h2>Lead: {{datadisplay.lead_first_name}} {{datadisplay.lead_last_name}}</h2>
+{% endfor %}
+<table class="table table-bordered">
+    <tbody>
+        {% for datadisplay in CRMLead %}
+        <tr>
+            <th>
+                Lead Information
+            </th>
+        </tr>
+        <tr>
+            <th>
+                Lead ID:
+            </th>
+            <td>
+                {{datadisplay.lead_id}}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Lead First Name:
+            </th>
+            <td>
+                {{datadisplay.lead_first_name}}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Lead Last Name:
+            </th>
+            <td>
+                {{datadisplay.lead_last_name}}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Company Name:
+            </th>
+            <td>
+                {{datadisplay.lead_company_name}}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Job Title:
+            </th>
+            <td>
+               {{datadisplay.lead_job_title}}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Industry:
+            </th>
+            <td>
+                {{datadisplay.lead_industry}}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Description:
+            </th>
+            <td>
+                {{datadisplay.lead_description}}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Location
+            </th>
+        </tr>
+        <tr>
+            <th>
+                City:
+            </th>
+            <td>
+                {{datadisplay.city}}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Region:
+            </th>
+            <td>
+                {{datadisplay.region}}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Country:
+            </th>
+            <td>
+                {{datadisplay.country}}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Business
+            </th>
+        </tr>
+        <tr>
+            <th>
+                Annual Revenue:
+            </th>
+            <td>
+                ₪{{datadisplay.lead_annual_revenue}}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Employees:
+            </th>
+            <td>
+                {{datadisplay.lead_number_of_employees}}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Source:
+            </th>
+            <td>
+                {{datadisplay.lead_source}}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Rating:
+            </th>
+            <td>
+                {{datadisplay.lead_rating}}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Ownership
+            </th>
+        </tr>
+        <tr>
+            <th>
+                Owner:
+            </th>
+            <td>
+                {{datadisplay.user_first_name}} {{datadisplay.user_last_name}}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Created by:
+            </th>
+            <td>
+                 {{datadisplay.user_first_name}} {{datadisplay.user_last_name}}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Created Date:
+            </th>
+            <td>
+                {{datadisplay.lead_created_date}}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

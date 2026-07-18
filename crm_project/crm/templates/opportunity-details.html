@@ -1,0 +1,135 @@
+<!-- Opportunity details page -->
+{% extends "base.html" %}
+{% block title %}
+<title>Opportunity Details Page</title>
+{% endblock %}
+{% block content %}
+{% for datadisplay in CRMOpportunity %}
+<h2>Opportunity: {{datadisplay.opportunity_name}}</h2>
+{% endfor %}
+<table class="table table-bordered">
+    <tbody>
+        {% for datadisplay in CRMOpportunity %}
+        <tr>
+            <th>
+                Opportunity Information
+            </th>
+        </tr>
+        <tr>
+            <th>
+                Opportunity ID:
+            </th>
+            <td>
+                {{datadisplay.opportunity_id}}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Opportunity Name:
+            </th>
+            <td>
+                {{datadisplay.opportunity_name}}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Account:
+            </th>
+            <td>
+                {{datadisplay.account_id}}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Close Date:
+            </th>
+            <td>
+                {{datadisplay.opportunity_close_date}}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Description:
+            </th>
+            <td>
+                {{datadisplay.opportunity_description}}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Business
+            </th>
+        </tr>
+        <tr>
+            <th>
+                Amount:
+            </th>
+            <td>
+                ₪{{datadisplay.opportunity_amount}}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Source:
+            </th>
+            <td>
+                {{datadisplay.lead_source}}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Type:
+            </th>
+            <td>
+                {{datadisplay.opportunity_type}}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Stage:
+            </th>
+            <td>
+                {{datadisplay.opportunity_stage}}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Probability:
+            </th>
+            <td>
+                {{datadisplay.opportunity_probability}}%
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Ownership
+            </th>
+        </tr>
+        <tr>
+            <th>
+                Owner:
+            </th>
+            <td>
+                {{datadisplay.user_first_name}} {{datadisplay.user_last_name}}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Created by:
+            </th>
+            <td>
+                 {{datadisplay.user_first_name}} {{datadisplay.user_last_name}}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Created Date:
+            </th>
+            <td>
+                {{datadisplay.opportunity_created_date}}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

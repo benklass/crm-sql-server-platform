@@ -1,0 +1,98 @@
+<!-- User details page -->
+{% extends "base.html" %}
+{% block title %}
+<title>User Details Page</title>
+{% endblock %}
+{% block content %}
+{% for datadisplay in CRMUser %}
+<h2>User: {{datadisplay.user_first_name}} {{datadisplay.user_last_name}}</h2>
+{% endfor %}
+<table class="table table-bordered">
+    <tbody>
+        {% for datadisplay in CRMUser %}
+        <tr>
+            <th>
+                User Information
+            </th>
+        </tr>
+        <tr>
+            <th>
+                User ID:
+            </th>
+            <td>
+                {{datadisplay.user_id}}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                User First Name: 
+            </th>
+            <td>
+                {{datadisplay.user_first_name}}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                User Last Name: 
+            </th>
+            <td>
+                {{datadisplay.user_last_name}}
+            </td>
+        </tr>
+         <tr>
+            <th>
+                Username:
+            </th>
+            <td>
+                {{datadisplay.user_username}}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Company:
+            </th>
+            <td>
+                {{datadisplay.user_company}}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Department:
+            </th>
+            <td>
+                {{datadisplay.user_department}}
+            </td>
+        </tr>
+         <tr>
+            <th>
+                Role:
+            </th>
+            <td>
+                {{datadisplay.user_role}}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                User Contact Details
+            </th>
+        </tr>
+        <tr>
+            <th>
+                Email:
+            </th>
+            <td>
+                {{datadisplay.user_email}}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Phone:
+            </th>
+            <td>
+                {{datadisplay.user_phone}}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -1,23 +1,36 @@
-nav {
-  background-color: #630330;
+:root {
+    --crm-primary: #630330;
+    --crm-text-light: #ffffff;
 }
 
-nav > div > ul > li:hover {
-  background-color: #840545
+nav {
+    background-color: var(--crm-primary);
+}
+
+.nav-link:hover {
+    background-color: var(--crm-primary-hover);
 }
 
 .link-color {
-  color: white;
+  color: var(--crm-text-light);
 }
 
 .link-color:hover {
-  color: white;
+  color: var(--crm-text-light);
 }
 
-th {
-  background-color: #630330;
-  color: white;
-  position: sticky;
-  top: 0;
-  z-index: 10;
+h2 {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+h3 {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.table > thead.crm-table-header > tr > th {
+    --bs-table-bg: var(--crm-primary);
+    --bs-table-color: var(--crm-text-light);
+    --bs-table-accent-bg: var(--crm-primary);
 }

@@ -1,0 +1,140 @@
+<!-- Account details page -->
+{% extends "base.html" %}
+{% block title %}
+<title>Account Details Page</title>
+{% endblock %}
+{% block content %}
+{% for datadisplay in CRMAccount %}
+<h2>Account: {{datadisplay.account_name}}</h2>
+{% endfor %}
+<table class="table table-bordered">
+    <tbody>
+        {% for datadisplay in CRMAccount %}
+        <tr>
+            <th>
+                Account Information
+            </th>
+        </tr>
+        <tr>
+            <th>
+                Account ID:
+            </th>
+            <td>
+                {{datadisplay.account_id}}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Acccount Name: 
+            </th>
+            <td>
+                {{datadisplay.account_name}}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Industry:
+            </th>
+            <td>
+                {{datadisplay.account_industry}}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Description:
+            </th>
+            <td>
+                {{datadisplay.account_description}}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Location
+            </th>
+        </tr>
+        <tr>
+            <th>
+                City:
+            </th>
+            <td>
+                {{datadisplay.city}}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Region:
+            </th>
+            <td>
+                {{datadisplay.region}}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Country:
+            </th>
+            <td>
+                {{datadisplay.country}}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Business
+            </th>
+        </tr>
+        <tr>
+            <th>
+                Annual Revenue:
+            </th>
+            <td>
+                ₪{{datadisplay.account_annual_revenue}}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Employees:
+            </th>
+            <td>
+                {{datadisplay.account_number_of_employees}}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Source:
+            </th>
+            <td>
+                {{datadisplay.account_source}}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Ownership
+            </th>
+        </tr>
+        <tr>
+            <th>
+                Owner:
+            </th>
+            <td>
+                {{datadisplay.user_first_name}} {{datadisplay.user_last_name}}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Created by:
+            </th>
+            <td>
+                 {{datadisplay.user_first_name}} {{datadisplay.user_last_name}}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Created Date:
+            </th>
+            <td>
+                {{datadisplay.account_created_date}}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

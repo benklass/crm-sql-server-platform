@@ -1,0 +1,103 @@
+<!-- Contact details page -->
+{% extends "base.html" %}
+{% block title %}
+<title>Contact Details Page</title>
+{% endblock %}
+{% block content %}
+{% for datadisplay in CRMContact %}
+<h2>Contact: {{datadisplay.contact_first_name}} {{datadisplay.contact_last_name}}</h2>
+{% endfor %}
+<table class="table table-bordered">
+    <tbody>
+        {% for datadisplay in CRMContact %}
+        <tr>
+            <th>
+                Contact Information
+            </th>
+        </tr>
+        <tr>
+            <th>
+                Contact ID:
+            </th>
+            <td>
+                {{datadisplay.contact_id}}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Contact First Name: 
+            </th>
+            <td>
+                {{datadisplay.contact_first_name}}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Contact Last Name: 
+            </th>
+            <td>
+                {{datadisplay.contact_last_name}}
+            </td>
+        </tr>
+         <tr>
+            <th>
+                Job Title: 
+            </th>
+            <td>
+                {{datadisplay.contact_job_title}}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Contact Contact Details
+            </th>
+        </tr>
+        <tr>
+            <th>
+                Email:
+            </th>
+            <td>
+                {{datadisplay.contact_email}}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Phone:
+            </th>
+            <td>
+                {{datadisplay.contact_phone}}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Ownership
+            </th>
+        </tr>
+        <tr>
+            <th>
+                Owner:
+            </th>
+            <td>
+                {{datadisplay.user_first_name}} {{datadisplay.user_last_name}}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Created by:
+            </th>
+            <td>
+                 {{datadisplay.user_first_name}} {{datadisplay.user_last_name}}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Created Date:
+            </th>
+            <td>
+                {{datadisplay.contact_created_date}}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
