@@ -5,6 +5,28 @@
 {% endblock %}
 {% block content %}
 <h2>CRM Opportunities Table</h2>
+<form id="record-number-form" method="get" onchange="getSelectedOption()">
+    <label for="record-number">
+        Records per page
+    </label>
+    <select name="record-number" id="record-number">
+        <option value="{{ 10 }}" {% if record_number_selection == "10" %}selected{% endif %}>
+            10
+        </option>
+        <option value="{{ 25 }}" {% if record_number_selection == "25" %}selected{% endif %}>
+            25
+        </option>
+        <option value="{{ 50 }}" {% if record_number_selection == "50" %}selected{% endif %}>
+            50
+        </option>
+        <option value="{{ 100 }}" {% if record_number_selection == "100" %}selected{% endif %}>
+            100
+        </option>
+        <option value="{{ 200 }}" {% if record_number_selection == "200" %}selected{% endif %}>
+            200
+        </option>
+    </select>
+</form>
 <table class="table table-striped table-bordered">
     <thead class="crm-table-header">
         <tr>
@@ -24,27 +46,44 @@
     </tr>
     </thead>
     <tbody>
-        {% for datadisplay in CRMOpportunity %}
+        {% for opportunity in opportunities %}
         <tr>
             <td>
-                <a href="{% url 'opportunity_details' datadisplay.opportunity_num %}">
-                    {{datadisplay.opportunity_id}}
+                <a href="{% url 'opportunity_details' opportunity.opportunity_num %}">
+                    {{opportunity.opportunity_id}}
                 </a>
             </td>
-            <td>₪{{datadisplay.opportunity_amount}}</td>
-            <td>{{datadisplay.opportunity_name}}</td>
-            <td>{{datadisplay.opportunity_close_date}}</td>
-            <td>{{datadisplay.account_id}}</td>
-            <td>{{datadisplay.opportunity_description}}</td>
-            <td>{{datadisplay.opportunity_type}}</td>
-            <td>{{datadisplay.opportunity_stage}}</td>
-            <td>{{datadisplay.lead_source}}</td>
-            <td>{{datadisplay.opportunity_probability}}%</td>
-            <td>{{datadisplay.opportunity_created_date}}</td>
-            <td>{{datadisplay.user_first_name}} {{datadisplay.user_last_name}}</td>
-            <td>{{datadisplay.user_first_name}} {{datadisplay.user_last_name}}</td>
+            <td>₪{{opportunity.opportunity_amount}}</td>
+            <td>{{opportunity.opportunity_name}}</td>
+            <td>{{opportunity.opportunity_close_date}}</td>
+            <td>{{opportunity.account_id}}</td>
+            <td>{{opportunity.opportunity_description}}</td>
+            <td>{{opportunity.opportunity_type}}</td>
+            <td>{{opportunity.opportunity_stage}}</td>
+            <td>{{opportunity.lead_source}}</td>
+            <td>{{opportunity.opportunity_probability}}%</td>
+            <td>{{opportunity.opportunity_created_date}}</td>
+            <td>{{opportunity.user_first_name}} {{opportunity.user_last_name}}</td>
+            <td>{{opportunity.user_first_name}} {{opportunity.user_last_name}}</td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
+{% if opportunities.has_previous %}
+<a href="?page=1">
+    &laquo First
+</a>
+<a href="?page={{opportunities.previous_page_number}}">
+    Previous
+</a>
+{% endif %}
+Page {{ opportunities.number }} of {{ opportunities.paginator.num_pages }}
+{% if opportunities.has_next %}
+<a href="?page={{opportunities.next_page_number}}">
+    Next
+</a>
+<a href="?page={{opportunities.paginator.num_pages}}">
+    Last &raquo
+</a>
+{% endif %}
 {% endblock %}

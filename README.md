@@ -2,28 +2,61 @@
 
 ## Overview
 
-CRM Platform is a full-stack Customer Relationship Management (CRM) web application currently being developed using **Microsoft SQL Server**, **Python**, **Django**, **HTML5**, **CSS3**, and **Bootstrap 5**.
+CRM Platform is a full-stack Customer Relationship Management (CRM) web application developed using **Microsoft SQL Server**, **Python**, **Django**, **HTML5**, **CSS3**, **JavaScript**, and **Bootstrap 5**.
 
-The project began as a normalized relational SQL Server database and has evolved into a dynamic Django web application capable of displaying CRM data through a responsive browser interface.
+The project began as a normalized Microsoft SQL Server database before evolving into a dynamic Django application capable of browsing CRM data through a responsive web interface.
 
-It demonstrates SQL Server integration with Django, relational database design, SQL joins, Bootstrap styling, reusable Django templates, and full-stack web application development.
+Rather than relying on Django's ORM, the application demonstrates direct integration between Django and Microsoft SQL Server using **parameterized SQL queries** via **pyodbc**, providing hands-on experience with relational database development, SQL joins, reusable application architecture, and full-stack web development.
+
+---
+
+# Features
+
+## CRM Modules
+
+- Users
+- Accounts
+- Contacts
+- Leads
+- Opportunities
+
+Each module includes:
+
+- Dynamic list page
+- Individual detail page
+- SQL Server integration
+- Human-readable foreign key relationships
+- Pagination
+- Configurable records per page
+
+The Accounts module additionally supports:
+
+- Multi-column search
+- Empty search handling
+- Search-aware pagination
 
 ---
 
 # Objectives
 
-- Design a normalized multi-table CRM database
-- Implement relational links between CRM business objects
-- Simulate real-world CRM workflows
-- Populate the database with realistic Israeli business data
-- Build reusable SQL reporting queries
-- Integrate Django with Microsoft SQL Server
-- Develop a responsive CRM web interface
-- Showcase SQL Server, Python, Django, and full-stack development skills
+- Design a normalized CRM relational database
+- Model real CRM business relationships
+- Populate the database with realistic sample data
+- Develop reusable SQL reporting queries
+- Integrate SQL Server with Django
+- Build reusable Django components
+- Implement responsive Bootstrap interfaces
+- Demonstrate full-stack development skills
 
 ---
 
-# Technologies Used
+# Technologies
+
+## Backend
+
+- Python
+- Django
+- pyodbc
 
 ## Database
 
@@ -31,18 +64,11 @@ It demonstrates SQL Server integration with Django, relational database design, 
 - T-SQL
 - SQL Server Management Studio (SSMS)
 
-## Backend
-
-- Python
-- Django
-- Django ORM
-- pyodbc
-- ODBC Driver 18 for SQL Server
-
 ## Frontend
 
 - HTML5
 - CSS3
+- JavaScript
 - Bootstrap 5
 - Django Templates
 
@@ -54,34 +80,76 @@ It demonstrates SQL Server integration with Django, relational database design, 
 
 ---
 
-# Current Project Status
+# Current Functionality
 
-## Completed
+## Database
 
-- SQL Server relational database
-- Five CRM business objects (Users, Accounts, Contacts, Leads, Opportunities)
-- Primary and Foreign Key relationships
-- Computed business IDs
-- CHECK constraints and default constraints
-- SQL reporting queries
-- SQL Server integration with Django
-- Dynamic list pages for all CRM objects
-- Dynamic record detail pages for all CRM objects
-- Dynamic URL routing
-- Parameterized SQL queries using WHERE clauses
-- Shared `base.html` template
-- Django template inheritance
-- Bootstrap 5 responsive interface
-- Responsive navigation bar
-- External CSS styling
-- Human-readable foreign-key relationships using SQL JOINs
+- Normalized SQL Server schema
+- Five relational business objects
+- Primary keys
+- Foreign keys
+- CHECK constraints
+- DEFAULT constraints
+- Computed CRM IDs
+- Sample reporting queries
 
-## Currently In Development
+---
 
-- CRUD operations
-- Search and filtering
-- Authentication
-- Dashboard and analytics
+## Django Application
+
+- SQL Server connectivity
+- Dynamic list pages
+- Dynamic detail pages
+- Shared base template
+- Reusable navigation
+- Parameterized SQL queries
+- Human-readable JOINs
+- External CSS
+- External JavaScript
+
+---
+
+## Pagination
+
+Reusable pagination utility supporting:
+
+- Configurable page sizes
+- URL parameter preservation
+- Shared implementation across multiple views
+
+Supported page sizes:
+
+- 10
+- 25
+- 50
+- 100
+- 200
+
+---
+
+## Search
+
+Currently implemented for the Accounts module.
+
+Supports searching across multiple fields including:
+
+- Account ID
+- Account name
+- City
+- Country
+- Description
+- Industry
+- Email
+- Phone
+- Owner
+- Creator
+
+Features include:
+
+- Parameterized SQL queries
+- Search result pagination
+- Search term persistence
+- Empty result handling
 
 ---
 
@@ -91,50 +159,49 @@ It demonstrates SQL Server integration with Django, relational database design, 
 CRM Platform GitHub/
 ├── LICENSE
 ├── README.md
-├── crm_project/
-│   ├── manage.py
-│   ├── db.sqlite3
-│   ├── crm/
-│   │   ├── __pycache__/
-│   │   ├── migrations/
-│   │   │   ├── __pycache__/
-│   │   │   ├── __init__.py
-│   │   │   ├── 0001_initial.py
-│   │   │   └── 0002_delete_crm_record.py
-│   │   ├── static/
-│   │   │   └── crm/
-│   │   │       └── styles.css
-│   │   ├── templates/
-│   │   │   ├── base.html
-│   │   │   ├── home.html
-│   │   │   ├── users.html
-│   │   │   ├── user-details.html
-│   │   │   ├── accounts.html
-│   │   │   ├── account-details.html
-│   │   │   ├── contacts.html
-│   │   │   ├── contact-details.html
-│   │   │   ├── leads.html
-│   │   │   ├── lead-details.html
-│   │   │   ├── opportunities.html
-│   │   │   └── opportunity-details.html
-│   │   ├── admin.py
-│   │   ├── apps.py
-│   │   ├── models.py
-│   │   ├── tests.py
-│   │   ├── urls.py
-│   │   └── views.py
-│   └── crm_project/
-│       ├── __pycache__/
-│       ├── __init__.py
-│       ├── asgi.py
-│       ├── settings.py
-│       ├── urls.py
-│       └── wsgi.py
 ├── screenshots/
 ├── sql/
+│   ├── additional_crm_sample_data.sql
 │   ├── create_tables.sql
 │   ├── insert_sample_data.sql
 │   └── sample_queries.sql
+│
+└── crm_project/
+    ├── manage.py
+    ├── db.sqlite3
+    │
+    ├── crm/
+    │   ├── migrations/
+    │   ├── static/
+    │   │   └── crm/
+    │   │       ├── scripts.js
+    │   │       └── styles.css
+    │   ├── templates/
+    │   │   ├── base.html
+    │   │   ├── home.html
+    │   │   ├── users.html
+    │   │   ├── user-details.html
+    │   │   ├── accounts.html
+    │   │   ├── account-details.html
+    │   │   ├── contacts.html
+    │   │   ├── contact-details.html
+    │   │   ├── leads.html
+    │   │   ├── lead-details.html
+    │   │   ├── opportunities.html
+    │   │   └── opportunity-details.html
+    │   ├── admin.py
+    │   ├── apps.py
+    │   ├── models.py
+    │   ├── tests.py
+    │   ├── urls.py
+    │   ├── utils.py
+    │   └── views.py
+    │
+    └── crm_project/
+        ├── settings.py
+        ├── urls.py
+        ├── asgi.py
+        └── wsgi.py
 ```
 
 ---
@@ -151,10 +218,13 @@ Parameterized SQL Queries
 Python / Django Views
           │
           ▼
+Reusable Utility Functions
+          │
+          ▼
 Django Templates
           │
           ▼
-Bootstrap 5 Interface
+Bootstrap + JavaScript
           │
           ▼
 Web Browser
@@ -162,78 +232,34 @@ Web Browser
 
 ---
 
-# Current Functionality
-
-## CRM Objects
-
-The application currently supports the following CRM modules:
-
-- Users
-- Accounts
-- Contacts
-- Leads
-- Opportunities
-
-Each module includes:
-
-- Dynamic list page
-- Individual record detail page
-- SQL Server data retrieval
-- Dynamic URL routing
-
----
-
-## Record Detail Pages
-
-Clicking a record identifier on a list page opens an individual detail page.
-
-Example workflow:
-
-```text
-Accounts List
-       │
-       ▼
-A00000001
-       │
-       ▼
-/accounts/details/1/
-       │
-       ▼
-SELECT ...
-FROM crm_accounts
-WHERE account_num = ?
-       │
-       ▼
-Account Detail Page
-```
-
-The detail pages retrieve a single database record using parameterized SQL queries.
-
----
-
 # Running the Project
 
-Start the Django development server:
+Install dependencies:
+
+```bash
+pip install django pyodbc
+```
+
+Run the development server:
 
 ```bash
 python manage.py runserver
 ```
 
-Then open:
+Open:
 
-```text
+```
 http://127.0.0.1:8000/
 ```
 
-The navigation bar provides access to all CRM modules.
-
 ---
 
-# Roadmap
+# Development Roadmap
 
 ## Version 1.0
 
-- SQL Server CRM database
+- SQL Server database
+- Relational schema
 
 ## Version 1.1
 
@@ -241,36 +267,45 @@ The navigation bar provides access to all CRM modules.
 
 ## Version 1.2
 
-- HTML templates
+- Dynamic templates
 
 ## Version 1.3
 
-- Dynamic Users page
+- Users module
 
 ## Version 1.4
 
-- Dynamic pages for Users, Accounts, Contacts, Leads, and Opportunities
-- Bootstrap 5 styling
-- Navigation bar
-- Human-readable foreign-key relationships
+- All CRM objects
+- Bootstrap interface
+- Detail pages
+- SQL JOINs
 
 ## Version 1.5
 
-- Shared `base.html` layout
-- Django template inheritance
-- Dynamic record detail pages
-- Parameterized SQL record retrieval
-- Improved Bootstrap styling
-- Reusable navigation
-- Improved CSS architecture
-- Resolved Bootstrap and CSS compatibility issues
+- Shared base template
+- External CSS
+- Improved navigation
+- Reusable layouts
 
-## Planned Features
+## Version 1.6
 
-- Create, Update and Delete (CRUD)
-- Search
-- Filtering
-- Pagination
+- Reusable pagination utility
+- Dynamic page size selection
+- Search-aware pagination
+- Accounts search
+- External JavaScript
+- Utility module (`utils.py`)
+- Additional SQL Server sample data
+- Improved reusable architecture
+
+---
+
+# Planned Features
+
+- Search for remaining CRM modules
+- Column sorting
+- Advanced filtering
+- CRUD operations
 - Authentication
 - User authorization
 - Dashboard
@@ -284,19 +319,20 @@ The navigation bar provides access to all CRM modules.
 # Skills Demonstrated
 
 - Microsoft SQL Server
-- Relational database design
 - Database normalization
+- Relational database design
 - SQL JOINs
-- Parameterized SQL queries
+- Parameterized SQL
 - Python
 - Django
 - Django Templates
 - Template inheritance
-- Dynamic URL routing
+- Reusable utility functions
+- JavaScript
 - HTML5
 - CSS3
 - Bootstrap 5
-- Responsive web design
+- Responsive web development
 - Git
 - GitHub
 - Full-stack web development
@@ -305,7 +341,7 @@ The navigation bar provides access to all CRM modules.
 
 # Screenshots
 
-Application screenshots demonstrating each development milestone are available in the **screenshots/** directory.
+Screenshots documenting the application's development are available in the **screenshots/** directory.
 
 ---
 
@@ -313,7 +349,7 @@ Application screenshots demonstrating each development milestone are available i
 
 **Benjamin Klass**
 
-Master of Environmental Science & GIS
+Master of Environmental Science (GIS & Remote Sensing)
 
 University of Haifa
 

@@ -1,4 +1,6 @@
 from django.db import models
+from django import forms
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 # Create your models here.
 
@@ -313,10 +315,6 @@ class CRMLead(models.Model):
         )
 
 # Opportunity object list model
-from django.core.validators import MaxValueValidator, MinValueValidator
-from django.db import models
-
-
 class CRMOpportunity(models.Model):
     opportunity_num = models.AutoField(
         primary_key=True,
@@ -397,3 +395,17 @@ class CRMOpportunity(models.Model):
 
     def __str__(self):
         return f"{self.opportunity_id} - {self.opportunity_name}"
+    
+    from django import forms
+
+record_choices = (
+    10,
+    25,
+    50, 
+    100,
+    200
+)
+
+class RecordNumberForm(forms.Form):
+    record_number = forms.ChoiceField(label="Records per page", choices=record_choices)
+    

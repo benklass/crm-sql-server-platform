@@ -2,20 +2,13 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
 import pyodbc
-from .models import CRMAccount
+import math
+from django import forms
+from django.core.paginator import Paginator
+from .models import CRMAccount, RecordNumberForm
+from .utils import paginate_results, search_results
 
 # Create your views here.
-
-# Connect to crm_users table to view user records
-def conn_sql_users(request):
-    conn = pyodbc.connect('Driver={sql server};'
-                            'Server=ben-pc\SQLEXPRESS;'
-                            'Database=CRMDB;'
-                            'Trusted_Connection=yes')
-    cursor = conn.cursor()
-    cursor.execute('SELECT * FROM crm_users')
-    result = cursor.fetchall()
-    return render(request, 'users.html', {'CRMUser': result})
 
 # Connect to crm_accounts table to view account records
 def conn_sql_accounts(request):
@@ -24,9 +17,39 @@ def conn_sql_accounts(request):
                             'Database=CRMDB;'
                             'Trusted_Connection=yes')
     cursor = conn.cursor()
-    cursor.execute('SELECT * FROM crm_accounts INNER JOIN crm_users ON crm_accounts.owner_num = crm_users.user_num;')
+    cursor.execute("""
+        SELECT
+            crm_accounts.*,
+            owner.user_first_name AS owner_first_name,
+            owner.user_last_name AS owner_last_name,
+            creator.user_first_name AS creator_first_name,
+            creator.user_last_name AS creator_last_name
+        FROM crm_accounts
+        INNER JOIN crm_users AS owner
+            ON crm_accounts.owner_num = owner.user_num
+        INNER JOIN crm_users AS creator
+            ON crm_accounts.created_by_num = creator.user_num;
+    """)
     result = cursor.fetchall()
-    return render(request, 'accounts.html', {'CRMAccount': result})
+
+    records, record_number_selection = paginate_results(
+        request,
+        result,
+    )
+
+    search_term = request.GET.get(
+        "search-term", 
+        "Search.."
+    )
+
+    if search_term != "Search.." or "":
+        search_term, result, records, record_number_selection = search_results(
+            request,
+            search_term, 
+            cursor
+        )
+
+    return render(request, 'accounts.html', {'CRMAccount': result, 'accounts': records, "record_number_selection": record_number_selection, "search_term": search_term})
 
 # Connect to crm_contacts database to view contact records
 def conn_sql_contacts(request):
@@ -37,7 +60,13 @@ def conn_sql_contacts(request):
     cursor = conn.cursor()
     cursor.execute('SELECT * FROM crm_contacts INNER JOIN crm_accounts ON crm_contacts.account_num = crm_accounts.account_num INNER JOIN crm_users ON crm_contacts.owner_num = crm_users.user_num;')
     result = cursor.fetchall()
-    return render(request, 'contacts.html', {'CRMContact': result})
+
+    records, record_number_selection = paginate_results(
+        request,
+        result,
+    )
+
+    return render(request, 'contacts.html', {'CRMContact': result, 'contacts': records, "record_number_selection": record_number_selection})
 
 # Connect to crm_leads database to view lead records
 def conn_sql_leads(request):
@@ -48,7 +77,13 @@ def conn_sql_leads(request):
     cursor = conn.cursor()
     cursor.execute('SELECT * FROM crm_leads INNER JOIN crm_users ON crm_leads.owner_num = crm_users.user_num;')
     result = cursor.fetchall()
-    return render(request, 'leads.html', {'CRMLead': result})
+
+    records, record_number_selection = paginate_results(
+        request,
+        result,
+    )
+
+    return render(request, 'leads.html', {'CRMLead': result, 'leads': records, "record_number_selection": record_number_selection})
 
 # Connect to crm_opportunities database to view lead records
 def conn_sql_opportunities(request):
@@ -59,7 +94,30 @@ def conn_sql_opportunities(request):
     cursor = conn.cursor()
     cursor.execute('SELECT * FROM crm_opportunities INNER JOIN crm_users ON crm_opportunities.owner_num = crm_users.user_num INNER JOIN crm_accounts ON crm_opportunities.account_num = crm_accounts.account_num;')
     result = cursor.fetchall()
-    return render(request, 'opportunities.html', {'CRMOpportunity': result})
+
+    records, record_number_selection = paginate_results(
+        request,
+        result,
+    )
+
+    return render(request, 'opportunities.html', {'CRMOpportunity': result, 'opportunities': records, "record_number_selection": record_number_selection})
+
+# Connect to crm_users table to view user records
+def conn_sql_users(request):
+    conn = pyodbc.connect('Driver={sql server};'
+                            'Server=ben-pc\SQLEXPRESS;'
+                            'Database=CRMDB;'
+                            'Trusted_Connection=yes')
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM crm_users')
+    result = cursor.fetchall()
+
+    records, record_number_selection = paginate_results(
+        request,
+        result,
+    )
+
+    return render(request, 'users.html', {'CRMUser': result, 'users': records, "record_number_selection": record_number_selection})
 
 # Display account detail record
 def conn_sql_account_details(request, account_num):
@@ -70,6 +128,7 @@ def conn_sql_account_details(request, account_num):
     cursor = conn.cursor()
     cursor.execute('SELECT * FROM crm_accounts  INNER JOIN crm_users ON crm_accounts.owner_num = crm_users.user_num WHERE account_num = %s' % account_num)
     result = cursor.fetchall()
+    
     return render(request, 'account-details.html', {'CRMAccount': result})
 
 # Display contact detail record
@@ -115,3 +174,5 @@ def conn_sql_user_details(request, user_num):
     cursor.execute('SELECT * FROM crm_users WHERE user_num = %s' % user_num)
     result = cursor.fetchall()
     return render(request, 'user-details.html', {'CRMUser': result})
+
+

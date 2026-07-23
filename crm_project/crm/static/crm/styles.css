@@ -3,6 +3,10 @@
     --crm-text-light: #ffffff;
 }
 
+body {
+    background-color: #F8F8F8;
+}
+
 nav {
     background-color: var(--crm-primary);
 }
@@ -25,6 +29,23 @@ h2 {
 }
 
 h3 {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+#list-view-command-bar {
+    display: flex;
+    background-color: #F2F2F2;
+    border-style: solid;
+    border-color: #DEE2E6;
+    list-style-type: none;
+}
+
+#list-view-command-bar > li {
+    padding: 10px;
+}
+
+form {
     padding-top: 10px;
     padding-bottom: 10px;
 }

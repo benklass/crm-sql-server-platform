@@ -5,50 +5,107 @@
 {% endblock %}
 {% block content %}
 <h2>CRM Accounts Table</h2>
-<table class="table table-striped table-bordered">
-    <thead class="crm-table-header">
-        <tr>
-            <th>Account ID</th>
-            <th>Name</th>
-            <th>City</th>
-            <th>Region</th>
-            <th>Country</th>
-            <th>Description</th>
-            <th>Inudstry</th>
-            <th>Annual Reveneu</th>
-            <th>Number of Employees</th>
-            <th>Source</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Created Date</th>
-            <th>Owner</th>
-            <th>Created By</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for datadisplay in CRMAccount %}
-        <tr>
-            <td>
-                <a href="{% url 'account_details' datadisplay.account_num %}">
-                {{datadisplay.account_id}}
-                </a>
-            </td>
-            <td>{{datadisplay.account_name}}</td>
-            <td>{{datadisplay.city}}</td>
-            <td>{{datadisplay.region}}</td>
-            <td>{{datadisplay.country}}</td>
-            <td>{{datadisplay.account_description}}</td>
-            <td>{{datadisplay.account_industry}}</td>
-            <td>₪{{datadisplay.account_annual_revenue}}</td>
-            <td>{{datadisplay.account_number_of_employees}}</td>
-            <td>{{datadisplay.account_source}}</td>
-            <td>{{datadisplay.account_email}}</td>
-            <td>{{datadisplay.account_phone}}</td>
-            <td>{{datadisplay.account_created_date}}</td>
-            <td>{{datadisplay.user_first_name}} {{datadisplay.user_last_name}}</td>
-            <td>{{datadisplay.user_first_name}} {{datadisplay.user_last_name}}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+<ul id="list-view-command-bar">
+    <li>
+        <form id="record-number-form" method="get" onchange="getSelectedOption()">
+            <label for="record-number">
+                Records per page
+            </label>
+            <select name="record-number" id="record-number">
+                <option value="{{ 10 }}" {% if record_number_selection == "10" %}selected{% endif %}>
+                    10
+                </option>
+                <option value="{{ 25 }}" {% if record_number_selection == "25" %}selected{% endif %}>
+                    25
+                </option>
+                <option value="{{ 50 }}" {% if record_number_selection == "50" %}selected{% endif %}>
+                    50
+                </option>
+                <option value="{{ 100 }}" {% if record_number_selection == "100" %}selected{% endif %}>
+                    100
+                </option>
+                <option value="{{ 200 }}" {% if record_number_selection == "200" %}selected{% endif %}>
+                    200
+                </option>
+            </select>
+        </form>
+    </li>
+    <li>
+        <form id="search-input-form" method="get">
+            <input id="search-term" value="{{ search_term }}" type="text" placeholder="Search.." name="search-term" oninput="searchKeyword()">
+            <button type="submit">
+                Submit
+            </button>
+        </form>
+    </li>
+    <p id="search-test">
+    </p>
+</ul>
+{% if accounts %}
+    {% for account in accounts %}
+    <table class="table table-striped table-bordered">
+        <thead class="crm-table-header">
+            <tr>
+                <th>Account ID</th>
+                <th>Name</th>
+                <th>City</th>
+                <th>Region</th>
+                <th>Country</th>
+                <th>Description</th>
+                <th>Inudstry</th>
+                <th>Annual Reveneu</th>
+                <th>Number of Employees</th>
+                <th>Source</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Created Date</th>
+                <th>Owner</th>
+                <th>Created By</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <a href="{% url 'account_details' account.account_num %}">
+                    {{account.account_id}}
+                    </a>
+                </td>
+                <td>{{account.account_name}}</td>
+                <td>{{account.city}}</td>
+                <td>{{account.region}}</td>
+                <td>{{account.country}}</td>
+                <td>{{account.account_description}}</td>
+                <td>{{account.account_industry}}</td>
+                <td>₪{{account.account_annual_revenue}}</td>
+                <td>{{account.account_number_of_employees}}</td>
+                <td>{{account.account_source}}</td>
+                <td>{{account.account_email}}</td>
+                <td>{{account.account_phone}}</td>
+                <td>{{account.account_created_date}}</td>
+                <td>{{account.owner_first_name}} {{account.owner_last_name}}</td>
+                <td>{{account.creator_first_name}} {{account.creator_last_name}}</td>
+            </tr>
+        </tbody>
+    </table>
+    {% endfor %}
+    {% if accounts.has_previous %}
+    <a href="{% querystring page=1 %}">
+        &laquo First
+    </a>
+    <a href="{% querystring page=accounts.previous_page_number %}">
+        Previous
+    </a>
+    {% endif %}
+    Page {{ accounts.number }} of {{ accounts.paginator.num_pages }}
+    {% if accounts.has_next %}
+    <a href="{% querystring page=accounts.next_page_number %}">
+        Next
+    </a>
+    <a href="{% querystring page=accounts.paginator.num_pages %}">
+        Last &raquo
+    </a>
+    {% endif %}
+{% else %}
+    <p>No accounts matched "{{ search_term }}".</p>
+{% endif %}
 {% endblock %}

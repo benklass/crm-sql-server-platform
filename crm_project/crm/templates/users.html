@@ -5,6 +5,28 @@
 {% endblock %}
 {% block content %}
 <h2>CRM Users Table</h2>
+<form id="record-number-form" method="get" onchange="getSelectedOption()">
+    <label for="record-number">
+        Records per page
+    </label>
+    <select name="record-number" id="record-number">
+        <option value="{{ 10 }}" {% if record_number_selection == "10" %}selected{% endif %}>
+            10
+        </option>
+        <option value="{{ 25 }}" {% if record_number_selection == "25" %}selected{% endif %}>
+            25
+        </option>
+        <option value="{{ 50 }}" {% if record_number_selection == "50" %}selected{% endif %}>
+            50
+        </option>
+        <option value="{{ 100 }}" {% if record_number_selection == "100" %}selected{% endif %}>
+            100
+        </option>
+        <option value="{{ 200 }}" {% if record_number_selection == "200" %}selected{% endif %}>
+            200
+        </option>
+    </select>
+</form>
 <table class="table table-striped table-bordered">
     <thead class="crm-table-header">
         <tr>
@@ -21,24 +43,41 @@
         </tr>
     </thead>
     <tbody>
-        {% for datadisplay in CRMUser %}
+        {% for user in users %}
         <tr>
             <td>
-                <a href="{% url 'user_details' datadisplay.user_num %}">
-                    {{datadisplay.user_id}}
+                <a href="{% url 'user_details' user.user_num %}">
+                    {{user.user_id}}
                 </a>
             </td>
-            <td>{{datadisplay.user_first_name}}</td>
-            <td>{{datadisplay.user_last_name}}</td>
-            <td>{{datadisplay.user_company}}</td>
-            <td>{{datadisplay.user_department}}</td>
-            <td>{{datadisplay.user_role}}</td>
-            <td>{{datadisplay.user_description}}</td>
-            <td>{{datadisplay.user_email}}</td>
-            <td>{{datadisplay.user_phone}}</td>
-            <td>{{datadisplay.user_username}}</td>
+            <td>{{user.user_first_name}}</td>
+            <td>{{user.user_last_name}}</td>
+            <td>{{user.user_company}}</td>
+            <td>{{user.user_department}}</td>
+            <td>{{user.user_role}}</td>
+            <td>{{user.user_description}}</td>
+            <td>{{user.user_email}}</td>
+            <td>{{user.user_phone}}</td>
+            <td>{{user.user_username}}</td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
+{% if users.has_previous %}
+<a href="?page=1">
+    &laquo First
+</a>
+<a href="?page={{users.previous_page_number}}">
+    Previous
+</a>
+{% endif %}
+Page {{ users.number }} of {{ users.paginator.num_pages }}
+{% if users.has_next %}
+<a href="?page={{users.next_page_number}}">
+    Next
+</a>
+<a href="?page={{users.paginator.num_pages}}">
+    Last &raquo
+</a>
+{% endif %}
 {% endblock %}

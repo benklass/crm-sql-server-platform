@@ -5,6 +5,28 @@
 {% endblock %}
 {% block content %}
 <h2>CRM Leads Table</h2>
+<form id="record-number-form" method="get" onchange="getSelectedOption()">
+    <label for="record-number">
+        Records per page
+    </label>
+    <select name="record-number" id="record-number">
+        <option value="{{ 10 }}" {% if record_number_selection == "10" %}selected{% endif %}>
+            10
+        </option>
+        <option value="{{ 25 }}" {% if record_number_selection == "25" %}selected{% endif %}>
+            25
+        </option>
+        <option value="{{ 50 }}" {% if record_number_selection == "50" %}selected{% endif %}>
+            50
+        </option>
+        <option value="{{ 100 }}" {% if record_number_selection == "100" %}selected{% endif %}>
+            100
+        </option>
+        <option value="{{ 200 }}" {% if record_number_selection == "200" %}selected{% endif %}>
+            200
+        </option>
+    </select>
+</form>
 <table class="table table-striped table-bordered">
     <thead class="crm-table-header">
         <tr>
@@ -31,34 +53,51 @@
         </tr>
     </thead>
     <tbody>
-        {% for datadisplay in CRMLead %}
+        {% for lead in leads %}
         <tr>
             <td>
-                <a href="{% url 'lead_details' datadisplay.lead_num %}">
-                    {{datadisplay.lead_id}}
+                <a href="{% url 'lead_details' lead.lead_num %}">
+                    {{lead.lead_id}}
                 </a>
             </td>
-            <td>{{datadisplay.lead_first_name}}</td>
-            <td>{{datadisplay.lead_last_name}}</td>
-            <td>{{datadisplay.lead_company_name}}</td>
-            <td>{{datadisplay.lead_job_title}}</td>
-            <td>{{datadisplay.city}}</td>
-            <td>{{datadisplay.region}}</td>
-            <td>{{datadisplay.country}}</td>
-            <td>{{datadisplay.lead_description}}</td>
-            <td>{{datadisplay.lead_industry}}</td>
-            <td>{{datadisplay.lead_source}}</td>
-            <td>{{datadisplay.lead_status}}</td>
-            <td>₪{{datadisplay.lead_annual_revenue}}</td>
-            <td>{{datadisplay.lead_rating}}</td>
-            <td>{{datadisplay.lead_number_of_employees}}</td>
-            <td>{{datadisplay.lead_email}}</td>
-            <td>{{datadisplay.lead_phone}}</td>
-            <td>{{datadisplay.lead_created_date}}</td>
-            <td>{{datadisplay.user_first_name}} {{datadisplay.user_last_name}}</td>
-            <td>{{datadisplay.user_first_name}} {{datadisplay.user_last_name}}</td>
+            <td>{{lead.lead_first_name}}</td>
+            <td>{{lead.lead_last_name}}</td>
+            <td>{{lead.lead_company_name}}</td>
+            <td>{{lead.lead_job_title}}</td>
+            <td>{{lead.city}}</td>
+            <td>{{lead.region}}</td>
+            <td>{{lead.country}}</td>
+            <td>{{lead.lead_description}}</td>
+            <td>{{lead.lead_industry}}</td>
+            <td>{{lead.lead_source}}</td>
+            <td>{{lead.lead_status}}</td>
+            <td>₪{{lead.lead_annual_revenue}}</td>
+            <td>{{lead.lead_rating}}</td>
+            <td>{{lead.lead_number_of_employees}}</td>
+            <td>{{lead.lead_email}}</td>
+            <td>{{lead.lead_phone}}</td>
+            <td>{{lead.lead_created_date}}</td>
+            <td>{{lead.user_first_name}} {{lead.user_last_name}}</td>
+            <td>{{lead.user_first_name}} {{lead.user_last_name}}</td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
+{% if leads.has_previous %}
+<a href="?page=1">
+    &laquo First
+</a>
+<a href="?page={{leads.previous_page_number}}">
+    Previous
+</a>
+{% endif %}
+Page {{ leads.number }} of {{ leads.paginator.num_pages }}
+{% if leads.has_next %}
+<a href="?page={{leads.next_page_number}}">
+    Next
+</a>
+<a href="?page={{leads.paginator.num_pages}}">
+    Last &raquo
+</a>
+{% endif %}
 {% endblock %}
